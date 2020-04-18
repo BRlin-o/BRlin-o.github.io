@@ -1,0 +1,39 @@
+.container {
+	width: 100%;
+    padding-right: 1px;
+    padding-left: 1px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.Info {
+    max-height: 600px;
+}
+
+.Number {
+    font-size: 10px;
+}
+
+.mainImageFrame {
+    height: 85%;
+}
+
+.mainImage {
+    max-height: 100%;
+    margin: 10px;
+}
+
+.BokkInfo {
+    margin: 20px;
+    font-size: 18px;
+}
+
+.BokkInfoItem {
+    margin: 3px;
+    font-size: 16px;
+}
+
+.BokkInfoItemCount {
+    margin: 2px;
+    font-size: 14px;
+}
