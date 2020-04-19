@@ -7,7 +7,7 @@
 }
 
 .Info {
-    max-height: 600px;
+    min-height: 500px;
 }
 
 .Number {
@@ -19,7 +19,7 @@
 }
 
 .mainImage {
-    max-height: 100%;
+    height: 450px;
     margin: 10px;
 }
 
@@ -31,9 +31,53 @@
 .BokkInfoItem {
     margin: 3px;
     font-size: 16px;
+    max-height: 800px;
 }
 
 .BokkInfoItemCount {
     margin: 2px;
     font-size: 14px;
+}
+
+.sidenav {
+    display: block;
+    left: 0;
+    margin-left: 5px;
+    position: fixed;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    z-index: 5;
+}
+
+.sidenav .sidenav-item {
+    cursor: pointer;
+    position: relative;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 60px;
+}
+
+.sidenav .sidenav-item .sidenav-item-bar {
+    border-left: 1px solid rgba(70, 70, 70, 0.25);
+    margin: 10px;
+    transition: border-left 0.2s ease;
+    height: 23px;
+    width: 2px
+}
+
+.sidenav .sidenav-item .sidenav-item-bar.active {
+    border-left: 3px solid rgba(70, 70, 70, 1);
+}
+
+.sidenav .sidenav-item .sidenav-item-text {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    margin-left: 5px;
+    width: 80px
+}
+
+.sidenav .sidenav-item .sidenav-item-text:hover {
+    opacity: 1;
 }

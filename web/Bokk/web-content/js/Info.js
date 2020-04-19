@@ -1,20 +1,54 @@
 var data = {
     bokk_id: 2, 
-    EnglistTitle: "(C96) [Arenowaiyo. (Aree)] JS Idol Tokubetsu Eigyou (Jou) (THE IDOLM@STER CINDERELLA GIRLS) [Chinese] [臭鼬娘漢化組]",
-    title: "(C96) [あれのわいよ。 (あれー)] JSアイドル特別営業(上) (アイドルマスター シンデレラガールズ) [中国翻訳]", 
+    EnglistTitle: "EnglishTitle",
+    title: "Title", 
     MainImage: "./web-data/1/1.jpg", 
     uploadData: "2020_03_22",
-    Count: "25",
-    Parodies: ["theidolmaster"],
-    Characters: ["haruyuuki"],
-    Tags: ["group", "lolicon", "stockings", "anal", "ahegao", "doublepenetration", "dilf", "bbm", "mmfthreesome", "catgirl", "scat", "kemonomimi", "blackmail", "gloves", "lowscat"],
-    Languages: ["translated", "chinese"],
-    Categories: ["doujinshi"]
-    
+    Count: "-1",
+    Parodies: ["Parodies1"],
+    Characters: ["Characters1"],
+    Tags: ["Tags1", "Tags2", "Tags3", "Tags4", "Tags5", "Tags6", "Tags7", "Tags8", "Tags9", "Tags10", "Tags11", "Tags12", "Tags13", "Tags14", "Tags15"],
+    Languages: ["Languages1", "chinese"],
+    Categories: ["Categories1"]
 }
 
 
 function fetchInfo(){
+    /*
+    ajax_request('ajax_getBokkInfo',
+        {
+            data: {
+                "bokk_id": bokk_id,
+            }
+        },
+        {
+            success: function (data){
+                $('.Number a').text(data.bokk_id);
+                $(document).prop('title', data.title+ ' | BOKK');
+                $('.mainImageFrame').html(
+                    $('<img/>', {src: data.MainImage, class: 'mainImage img-thumbnail'})
+                );
+                var fragment = document.createDocumentFragment();
+                if ("Parodies" in data){
+                    fragment.appendChild(getInfoItem("Parodies"));
+                }
+                if ("Characters" in data){
+                    fragment.appendChild(getInfoItem("Characters"));
+                }
+                if ("Tags" in data){
+                    fragment.appendChild(getInfoItem("Tags"));
+                }
+                if ("Languages" in data){
+                    fragment.appendChild(getInfoItem("Languages"));
+                }
+                if ("Categories" in data){
+                    fragment.appendChild(getInfoItem("Categories"));
+                }
+                $('.BokkInfo').append(fragment);
+            }
+        }
+    );
+    */
     
     $('.Number a').text(data.bokk_id);
     $(document).prop('title', data.title+ ' | BOKK');
@@ -38,13 +72,6 @@ function fetchInfo(){
         fragment.appendChild(getInfoItem("Categories"));
     }
     $('.BokkInfo').append(fragment);
-    
-    /*
-    $('.BokkInfo').html(
-        $
-    );
-    $
-    */
 }
 
 function getInfoItem(arrayName){
@@ -64,6 +91,30 @@ function getInfoItem(arrayName){
     return Info;
 }
 
+var common = {
+    validateEmail: function (email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    },
+    getUrlParam: function (paramName) {
+        var match = window.location.search.match("[?&]" + paramName + "(?:&|$|=([^&]*))");
+        return match ? (match[1] ? decodeURIComponent(match[1]) : "") : null;
+    },
+    formatPrice: function (x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+}
+
+function Bokk_notFound() {
+    $('#Alert_NOBOKK_ID').modal();
+}
+
 $(function () {
-    fetchInfo();
+    $('#Alert_NOBOKK_ID').modal();
+    if ($.isNumeric(common.getUrlParam('bid'))) {
+        bokk_id = common.getUrlParam('bid');
+        fetchInfo();
+    } else {
+        Bokk_notFound();
+    }
 });

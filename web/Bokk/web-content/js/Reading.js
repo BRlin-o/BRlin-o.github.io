@@ -4,8 +4,10 @@ function getNow(){
     $('.ImageBox').html(
         $('<img/>', {src: "./web-data/1/" + page + ".jpg", class: 'Image'})
     );
-    new Image().src = "./web-data/1/" + (page-1) + ".jpg";
-    new Image().src = "./web-data/1/" + (page+1) + ".jpg";
+    for(var i=1;i<=2;++i){
+        new Image().src = "./web-data/1/" + (page+i) + ".jpg";
+        new Image().src = "./web-data/1/" + (page-i) + ".jpg";
+    }
 }
 
 $('.container').on('keydown',function(event) {
