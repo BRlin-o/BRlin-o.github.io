@@ -1,0 +1,12 @@
+.spacialTitle {
+	background-color: #000;
+	color: #FFF;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.spacial {
+	text-align: justify;
+	text-justify:inter-ideograph;
+	margin: 10px;
+}
