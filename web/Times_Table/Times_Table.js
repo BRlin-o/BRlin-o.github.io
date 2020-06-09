@@ -1,5 +1,3 @@
-var _g2 = d3.format("2g")
-
 function App(){
 	var row = []
     for (var i=0;i<3;++i){
