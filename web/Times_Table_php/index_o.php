@@ -6,6 +6,7 @@
 
         <style>
             * {
+                font-family: monospace;
                 font-size: 16px;
             }
             table {
@@ -13,7 +14,6 @@
                 margin: auto;
             }
             caption {
-                font-family: sans-serif;
                 background-color: black;
                 color: white;
             }
@@ -24,9 +24,18 @@
             tr {
                 text-align: center;
             }
-            td {
-                font-family: monospace;
+            .box {
                 width: 110px;
+                display: inline-block; 
+            }
+            .Formula {
+                text-align: left;
+            }
+            .ans {
+                text-align: right;
+            }
+            .Form {
+                display: inline;
             }
         </style>
     </head>
@@ -38,10 +47,13 @@
                     for($i=0;$i<3;++$i){
                         echo '<tr>';
                         for($j=0;$j<3;++$j){
-                            echo '<td>';
+                            echo '<td class="box">';
                             for($k=1;$k<=9;++$k){
                                 $value = ($i*3+$j+1);
-                                echo '<div>' . $value . ' x ' . $k . ' = ' . ($value*$k<10 ? '&nbsp;' : '') . $value*$k . '</div>';
+                                echo '<div><span class="Formula">' . $value . ' x ' . $k . ' = </span><span class="ans">' . (log10($value*$k)<=1 ? '&nbsp;' : '') . $value*$k . '</span></div>';
+                                //echo '<span>' . ($i*3+$j+1) . '</span>';
+                                //echo '<span> x </span>' . $k . '<span> = </span>';
+                                //echo '<span>' . ($i*3+$j+1)*$k . '<br/><span>';
                             }
                             echo '</td>';
                         }
