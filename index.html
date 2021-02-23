@@ -5,10 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>課表 - 資工二年級下學期</title>
         <meta name="author" content="BREND">
+        <link rel="stylesheet" href="main.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Open_Sans">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
-        <style>
+        <style type="text/css">
+            :root {
+                --blue: #388bfc;
+                --green: #53d664;
+                --purple: #8957e5;
+            }
             * {
                 padding: 0;
                 margin: 0;
@@ -64,9 +70,13 @@
             }
 
             table tbody {
-                background: radial-gradient(ellipse at center, #314357 0%, #0d1127 100%);
+                background: radial-gradient(ellipse at center, #3e4955 0%, #070d29 100%);
                 color: rgb(238, 238, 238);
-                
+            }
+            table thead {
+                border: 0px none;
+                background-color: #070d29;
+                color: rgb(238, 238, 238);
             }
 
             .header td {
@@ -96,20 +106,30 @@
             td .class-name {
                 font-size: 14px;
             }
+            /* table tbody tr td:nth-child(5) { 
+                background-color: #070d29; 
+            }  */
         </style>
     </head>
     <body>
         <div class="container">
             <table>
-                <tbody>
+                <thead>
                     <tr class="header">
                         <td colspan="2"></td>
-                        <td>星期一</td>
+                        <!-- <td>星期一</td>
                         <td>星期二</td>
                         <td>星期三</td>
                         <td>星期四</td>
-                        <td>星期五</td>
+                        <td>星期五</td> -->
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
                     </tr>
+                </thead>
+                <tbody>
                     <tr>
                         <td class="class-index">
                             <span>1</span>
@@ -417,7 +437,7 @@
                         <td></td>
                         <td></td>
                     </tr>
-                </tobdy>
+                </tbody>
             </table>
         </div>
     </body>
@@ -430,5 +450,14 @@
                 return false;
             }
         }
+
+
+        document.addEventListener("DOMContentLoaded", function (){
+            // the file is loading now
+            var week = new Date().getDay();  
+            if(week > 0 && week < 6){
+                document.styleSheets[0].insertRule("table tbody tr td:nth-child(" + (week + 2) + ") { background-color: #070d29; } ", 0);
+            }
+        });
     </script>
 </html>
