@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": ".",
+			"name": "ALL"
+		}
+	],
+	"settings": {
+		"terminal.integrated.cwd": "${workspaceFolder}"
+	},
+	"extensions": {
+		"recommendations": [
+			"aeschli.vscode-css-formatter",
+			"donjayamanne.githistory"
+		]
+	}
+}

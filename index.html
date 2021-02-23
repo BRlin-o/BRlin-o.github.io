@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>課表 - 資工二年級下學期</title>
+        <meta name="author" content="BREND">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Open_Sans">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+
+            body {
+                font-size: 12px;
+                font-family: "Open Sans", sans-serif;
+                background-color: black;
+            }
+
+            .container {
+                width: 100%;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            table::before {
+                position: absolute;
+                content: "";
+                top: -5px;
+                left: -5px;
+                right: -5px;
+                bottom: -5px;
+                background-color: aqua;
+                /* 使用linear-gradient生成线性渐变背景图 */
+                background-image: linear-gradient(90deg, rgb(121, 121, 247),rgb(198, 128, 248),rgba(238, 130, 238, 0.842),rgb(243, 103, 103),rgb(247, 197, 104),rgb(248, 248, 112),rgb(115, 252, 115),rgb(121, 121, 247));
+                /* 放大背景图 */
+                background-size: 400%;
+                border-radius: 5px;
+                z-index: -1;
+                filter: blur(20px);
+                /* 默认不显示 */
+                opacity: 1;
+                animation: show 8s linear infinite;
+            }
+            @keyframes show{
+                0%{
+                    background-position: 0%;
+                }
+                100%{
+                    background-position: 400%;
+                }
+            }
+
+            table{
+                border-radius: 5px;
+                background-color: #8957e5;
+                position: relative;
+            }
+
+            table tbody {
+                background: radial-gradient(ellipse at center, #314357 0%, #0d1127 100%);
+                color: rgb(238, 238, 238);
+                
+            }
+
+            .header td {
+                font-size: 16px;
+                font-family: "Audiowide", sans-serif;
+            }
+
+            .class-index {
+                font-size: 16px;
+                font-family: "Audiowide", sans-serif;
+            }
+
+            td {
+                text-align: center;
+            }
+
+            td .class-map {
+                font-weight: bold;
+                font-size: 10px;
+                color: #388bfc;
+            }
+
+            td .class-tch {
+                color: #53d664;
+            }
+
+            td .class-name {
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <table>
+                <tbody>
+                    <tr class="header">
+                        <td colspan="2"></td>
+                        <td>星期一</td>
+                        <td>星期二</td>
+                        <td>星期三</td>
+                        <td>星期四</td>
+                        <td>星期五</td>
+                    </tr>
+                    <tr>
+                        <td class="class-index">
+                            <span>1</span>
+                        </td>
+                        <td class="class-time">
+                            08:10<br />
+                            |<br />
+                            09:00
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <span class="class-map">2703</span><br />
+                            <span class="class-name">微處理機設計</span><br />
+                            <span class="class-tch">陳弘明</span>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="class-index">2</span>
+                        </td>
+                        <td>
+                            09:10<br />
+                            |<br />
+                            10:00
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <span class="class-map">2801</span><br />
+                            <span class="class-name">演算法</span><br />
+                            <span class="class-tch">張雅芬</span>
+                        </td>
+                        <td>
+                            <span class="class-map">2703</span><br />
+                            <span class="class-name">微處理機設計</span><br />
+                            <span class="class-tch">陳弘明</span>
+                        </td>
+                        <td>
+                            <span class="class-map">2703</span><br />
+                            <span class="class-name">嵌入式系統與設計</span><br />
+                            <span class="class-tch">陳永隆、楊承志</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="class-index">3</span>
+                        </td>
+                        <td>
+                            10:10<br />
+                            |<br />
+                            11:00
+                        </td>
+                        <td></td>
+                        <td>
+                            <span class="class-map">2301</span><br />
+                            <span class="class-name">電影中的資訊素養與理論</span><br />
+                            <span class="class-tch">林凱胤</span>
+                        </td>
+                        <td>
+                            <span class="class-map">2801</span><br />
+                            <span class="class-name">演算法</span><br />
+                            <span class="class-tch">張雅芬</span>
+                        </td>
+                        <td>
+                            <span class="class-map">2703</span><br />
+                            <span class="class-name">微處理機設計</span><br />
+                            <span class="class-tch">陳弘明</span>
+                        </td>
+                        <td>
+                            <span class="class-map">2703</span><br />
+                            <span class="class-name">嵌入式系統與設計</span><br />
+                            <span class="class-tch">陳永隆、楊承志</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="class-index">4</span>
+                        </td>
+                        <td>
+                            11:10<br />
+                            |<br />
+                            12:00
+                        </td>
+                        <td>
+                            <span class="class-map">2703</span><br />
+                            <span class="class-name">物聯網概論</span><br />
+                            <span class="class-tch">盧永豐</span>
+                        </td>
+                        <td>
+                            <span class="class-map">2301</span><br />
+                            <span class="class-name">電影中的資訊素養與理論</span><br />
+                            <span class="class-tch">林凱胤</span>
+                        </td>
+                        <td>
+                            <span class="class-map">2801</span><br />
+                            <span class="class-name">演算法</span><br />
+                            <span class="class-tch">張雅芬</span>
+                        </td>
+                        <td>
+                            <span class="class-map">2702</span><br />
+                            <span class="class-name">數位邏輯設計實習</span><br />
+                            <span class="class-tch">張家瑋</span>
+                        </td>
+                        <td>
+                            <span class="class-map">2703</span><br />
+                            <span class="class-name">嵌入式系統與設計</span><br />
+                            <span class="class-tch">陳永隆、楊承志</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="class-index">5</span>
+                        </td>
+                        <td>
+                            13:25<br />
+                            |<br />
+                            14:15
+                        </td>
+                        <td>
+                            <span class="class-map">2703</span><br />
+                            <span class="class-name">物聯網概論</span><br />
+                            <span class="class-tch">盧永豐</span>
+                        </td>
+                        <td></td>
+                        <td>
+                            <span class="class-map">3505</span><br />
+                            <span class="class-name">台灣開發史</span><br />
+                            <span class="class-tch">魏嚴堅</span>
+                        </td>
+                        <td>
+                            <span class="class-map">2702</span><br />
+                            <span class="class-name">數位邏輯設計實習</span><br />
+                            <span class="class-tch">張家瑋</span>
+                        </td>
+                        <td>
+                            <span class="class-map">2701</span><br />
+                            <span class="class-name">組合語言</span><br />
+                            <span class="class-tch">陳永隆</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="class-index">6</span>
+                        </td>
+                        <td>
+                            14:20<br />
+                            |<br />
+                            15:10
+                        </td>
+                        <td>
+                            <span class="class-map">2703</span><br />
+                            <span class="class-name">物聯網概論</span><br />
+                            <span class="class-tch">盧永豐</span>
+                        </td>
+                        <td></td>
+                        <td>
+                            <span class="class-map">3505</span><br />
+                            <span class="class-name">台灣開發史</span><br />
+                            <span class="class-tch">魏嚴堅</span>
+                        </td>
+                        <td>
+                            <span class="class-map">2702</span><br />
+                            <span class="class-name">數位邏輯設計實習</span><br />
+                            <span class="class-tch">張家瑋</span>
+                        </td>
+                        <td>
+                            <span class="class-map">2701</span><br />
+                            <span class="class-name">組合語言</span><br />
+                            <span class="class-tch">陳永隆</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="class-index">7</span>
+                        </td>
+                        <td>
+                            15:20<br />
+                            |<br />
+                            16:10
+                        </td>
+                        <td>
+                            <span class="class-map">保齡球館</span><br />
+                            <span class="class-name">生涯運動 (保齡球１)</span><br />
+                            <span class="class-tch">王建邦</span>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <span class="class-map">2701</span><br />
+                            <span class="class-name">週會/班會</span><br />
+                            <span class="class-tch">林昆立</span>
+                        </td>
+                        <td>
+                            <span class="class-map">2701</span><br />
+                            <span class="class-name">組合語言</span><br />
+                            <span class="class-tch">陳永隆</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="class-index">8</span>
+                        </td>
+                        <td>
+                            16:15<br />
+                            |<br />
+                            17:05
+                        </td>
+                        <td>
+                            <span class="class-map">保齡球館</span><br />
+                            <span class="class-name">生涯運動 (保齡球１)</span><br />
+                            <span class="class-tch">王建邦</span>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <span class="class-map">2701</span><br />
+                            <span class="class-name">週會/班會</span><br />
+                            <span class="class-tch">林昆立</span>
+                        </td>
+                        <td>
+                            <span class="class-map">2704</span><br />
+                            <span class="class-name">機率與統計</span><br />
+                            <span class="class-tch">陳冠顯</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="class-index">9</span>
+                        </td>
+                        <td>
+                            17:10<br />
+                            |<br />
+                            18:00
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <span class="class-map">2704</span><br />
+                            <span class="class-name">機率與統計</span><br />
+                            <span class="class-tch">陳冠顯</span>
+                        </td>
+                        <td>
+                            <span class="class-map">2704</span><br />
+                            <span class="class-name">機率與統計</span><br />
+                            <span class="class-tch">陳冠顯</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="class-index">10</span>
+                        </td>
+                        <td>
+                            18:10<br />
+                            |<br />
+                            19:00
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <span class="class-map">3609</span><br />
+                            <span class="class-name">初級情境日語（二）</span><br />
+                            <span class="class-tch">吳致秀</span>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="class-index">11</span></td>
+                        <td>
+                            19:10<br />
+                            |<br />
+                            20:00
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <span class="class-map">3609</span><br />
+                            <span class="class-name">初級情境日語（二）</span><br />
+                            <span class="class-tch">吳致秀</span>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="class-index">12</span>
+                        </td>
+                        <td>
+                            20:10<br />
+                            |<br />
+                            21:00
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <span class="class-map">3609</span><br />
+                            <span class="class-name">初級情境日語（二）</span><br />
+                            <span class="class-tch">吳致秀</span>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tobdy>
+            </table>
+        </div>
+    </body>
+    <script type="text/javascript">
+        isMobile = function() {
+            try {
+                document.createEvent("TouvhEvent");
+                return true;
+            } catch (e){
+                return false;
+            }
+        }
+    </script>
+</html>
