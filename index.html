@@ -1,17 +1,557 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils_3d/control_utils_3d.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
-    </head>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>林承漢 - 個人履歷</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang TC', 'Hiragino Sans GB', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .name {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .title {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95em;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 0;
+        }
+        
+        .sidebar {
+            background: #f8f9fa;
+            padding: 40px 30px;
+            border-right: 1px solid #e9ecef;
+        }
+        
+        .main {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 50px;
+            height: 2px;
+            background: #3498db;
+        }
+        
+        .job {
+            background: white;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #3498db;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .job:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        
+        .job-header {
+            margin-bottom: 15px;
+        }
+        
+        .job-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .company {
+            font-size: 1.1em;
+            color: #3498db;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .duration {
+            color: #7f8c8d;
+            font-size: 0.95em;
+            font-style: italic;
+        }
+        
+        .job-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .job-content li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .job-content li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+            font-size: 0.8em;
+        }
+        
+        .project {
+            background: #f8f9fa;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .project:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .project-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .award {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #856404;
+        }
+        
+        .skills-grid {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .skill-category {
+            margin-bottom: 20px;
+        }
+        
+        .skill-category h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1em;
+            font-weight: 600;
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .skill-tag {
+            background: #3498db;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-tag:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+        }
+        
+        .education-item, .achievement-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 3px solid #3498db;
+        }
+        
+        .education-item h4, .achievement-item h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .education-item p, .achievement-item p {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        .summary {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 20px rgba(116, 185, 255, 0.3);
+        }
+        
+        .summary h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                padding: 40px 20px;
+            }
+            
+            .name {
+                font-size: 2.5em;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .sidebar, .main {
+                padding: 30px 20px;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .container {
+                box-shadow: none;
+                margin: 0;
+            }
+            
+            .job:hover, .project:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
     <div class="container">
-        <video class="input_video"></video>
-        <canvas class="output_canvas" width="1280px" height="720px"></canvas>
-        <div class="landmark-grid-container"></div>
+        <header class="header">
+            <div class="header-content">
+                <h1 class="name">林承漢</h1>
+                <h2 class="title">資料工程師 & AI 開發者</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span>📧</span>
+                        <span>resume@brlin.org</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>📱</span>
+                        <span>(886)937-209-353</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>🌍</span>
+                        <span>台灣</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>🏅</span>
+                        <span>AWS 認證機器學習與資料工程師</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <aside class="sidebar">
+                <div class="section">
+                    <h3 class="section-title">技能專長</h3>
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <h4>程式語言</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">C++</span>
+                                <span class="skill-tag">C#</span>
+                                <span class="skill-tag">Java</span>
+                                <span class="skill-tag">JavaScript</span>
+                                <span class="skill-tag">SQL</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h4>資料分析</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Pandas</span>
+                                <span class="skill-tag">NumPy</span>
+                                <span class="skill-tag">Tableau</span>
+                                <span class="skill-tag">Alteryx</span>
+                                <span class="skill-tag">ETL</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h4>AI/機器學習</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">TensorFlow</span>
+                                <span class="skill-tag">PyTorch</span>
+                                <span class="skill-tag">LangChain</span>
+                                <span class="skill-tag">RAG</span>
+                                <span class="skill-tag">LLM</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h4>雲端 & DevOps</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">AWS</span>
+                                <span class="skill-tag">GCP</span>
+                                <span class="skill-tag">Docker</span>
+                                <span class="skill-tag">CI/CD</span>
+                                <span class="skill-tag">Git</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">學歷</h3>
+                    <div class="education-item">
+                        <h4>國立臺中科技大學</h4>
+                        <p><strong>資訊工程研究所 碩士</strong></p>
+                        <p>2023年9月 - 2025年8月</p>
+                        <p>課程：進階演算法、深度學習、生成式AI</p>
+                    </div>
+                    <div class="education-item">
+                        <h4>國立臺中科技大學</h4>
+                        <p><strong>資訊工程系 學士</strong></p>
+                        <p>2019年9月 - 2023年1月</p>
+                        <p>GPA: <strong>3.83/4.0</strong> | 排名: <strong>2/61</strong></p>
+                        <p>書卷獎、提前畢業</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">獲獎與認證</h3>
+                    <div class="achievement-item">
+                        <h4>🏆 競賽獲獎</h4>
+                        <p>• 2024 AIWave 生成式AI黑客松 <strong>第一名</strong></p>
+                        <p>• 第55屆全國技能競賽雲端運算 <strong>第四名</strong></p>
+                        <p>• 第55屆中區技能競賽雲端運算 <strong>第一名</strong></p>
+                        <p>• 2022 ITSA程式設計競賽 <strong>第一名</strong></p>
+                    </div>
+                    <div class="achievement-item">
+                        <h4>📜 專業認證</h4>
+                        <p>• AWS機器學習工程師證照</p>
+                        <p>• AWS資料工程師證照</p>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="main">
+                <div class="summary">
+                    <h3>專業摘要</h3>
+                    <p>具備企業數位轉型實戰經驗的資料工程師與AI開發者，同時支援高階主管策略決策制定。熱衷運用前沿AI技術解決實際商業挑戰，在BI系統、生成式AI應用與雲端架構方面擁有豐富經驗。</p>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">工作經驗</h3>
+                    
+                    <div class="job">
+                        <div class="job-header">
+                            <div class="job-title">資料工程師 & 總經理室助理 (兼職)</div>
+                            <div class="company">BETO 雙餘實業股份有限公司</div>
+                            <div class="duration">2023年9月 - 2024年12月</div>
+                        </div>
+                        <div class="job-content">
+                            <ul>
+                                <li>與外部顧問團隊合作推動企業BI導入，支援銷售與財務部門數位轉型，服務 <span class="highlight">50+</span> 名使用者</li>
+                                <li>開發 <span class="highlight">10+</span> 份互動式報表，涵蓋銷售分析、財務報表和高階主管KPI，為銷售與財務團隊 <span class="highlight">減少40%</span> 的報表準備時間</li>
+                                <li>為銷售、財務和高階主管建置綜合性儀表板，打破資料孤島並提升各組織層級的資料驅動決策能力，整體工作流程效率 <span class="highlight">提升30%</span></li>
+                                <li>使用Alteryx維護和優化 <span class="highlight">ETL管道</span>，處理SAP財務與銷售資料用於即時商業智慧分析</li>
+                                <li>針對健身器材與自行車產業進行策略研究，提供市場洞察與競爭分析以支援 <span class="highlight">C級主管</span> 業務擴展決策</li>
+                                <li>2024年參與 <span class="highlight">20+場</span> 技術會議（AWS Summit、Google DevFest、COMPUTEX等），整合生成式AI、BI與數位轉型新趨勢提供高階主管參考</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="job">
+                        <div class="job-header">
+                            <div class="job-title">軟體工程師 (全職)</div>
+                            <div class="company">貝托工程行銷股份有限公司</div>
+                            <div class="duration">2023年1月 - 2023年8月</div>
+                        </div>
+                        <div class="job-content">
+                            <ul>
+                                <li><span class="highlight">開發內部解決方案取代外部顧問，節省50萬+新台幣開發成本</span></li>
+                                <li>建置全方位出勤分析平台，服務 <span class="highlight">500+</span> 名跨部門員工，將HR報表產生時間從60分鐘縮短至即時存取，每週節省 <span class="highlight">36小時</span></li>
+                                <li>開發自動化庫存同步系統，管理 <span class="highlight">200+</span> 項SKU供 <span class="highlight">20名</span> 倉庫人員使用，消除手動SAP到供應商API更新作業，營運工作量 <span class="highlight">減少25%</span></li>
+                                <li>使用Docker和CI/CD實作容器化微服務架構與完整日誌系統，系統穩定性 <span class="highlight">提升40%</span>，故障排除時間 <span class="highlight">減少75%</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">重點專案</h3>
+                    
+                    <div class="project">
+                        <div class="project-title">
+                            ETmall AI 銷售助理
+                            <span class="award">團隊領導者 & AI開發者</span>
+                        </div>
+                        <p><strong>專案背景：</strong>ETmall（台灣電視購物龍頭）需要優化1000萬+會員的客服體驗及1000席客服中心處理每日9萬通諮詢的營運效率。</p>
+                        
+                        <p><strong>技術方案：</strong>設計企業級多代理AI銷售系統，採用三層架構：</p>
+                        <ul>
+                            <li><strong>指導AI：</strong> 使用RAG技術分析100+項客戶屬性進行個性化商品推薦</li>
+                            <li><strong>銷售AI：</strong> 即時語音對話處理完整銷售漏斗流程</li>
+                            <li><strong>評估AI：</strong> 對話後分析與客戶標籤優化</li>
+                        </ul>
+                        
+                        <p><strong>技術實作：</strong></p>
+                        <ul>
+                            <li>AWS雲端架構：EC2、DynamoDB、S3、Bedrock (Claude 3.7 Sonnet)、Amazon Transcribe/Polly</li>
+                            <li>AI框架：TEN Agent (STT-LLM-TTS)、Dify平台整合</li>
+                            <li>資料處理：RAG架構處理客戶與商品資料檢索</li>
+                        </ul>
+                        
+                        <p><strong>商業價值：</strong>成功展示100+客戶群體個性化對話，實現從諮詢到購買完成的自然對話流程。<span class="highlight">獲得ETmall高階主管與AWS團隊商業價值認可</span>。</p>
+                    </div>
+
+                    <div class="project">
+                        <div class="project-title">
+                            Gogoro 智慧機車助理
+                            <span class="award">🏆 2024 AIWave第一名</span>
+                        </div>
+                        <p><strong>技術成就：</strong></p>
+                        <ul>
+                            <li>使用ReAct框架開發多代理LLM系統，處理複雜查詢協調</li>
+                            <li>透過AWS Lambda & S3 triggers自動化PDF手冊處理，前處理時間 <span class="highlight">減少90%</span>，RAG問答準確度 <span class="highlight">提升80%</span></li>
+                            <li>建置多語言Streamlit前端，具備即時AI回應與Markdown渲染功能</li>
+                            <li>部署於Amazon ECS具備自動擴展功能，搭配CloudFront CDN達到產品級效能</li>
+                        </ul>
+                        <p><strong>產業影響：</strong><span class="highlight">Gogoro工程團隊確認方案對內部開發計畫具有價值</span>。後續擴展為本地部署方案並整合LINE Bot提高可及性。</p>
+                    </div>
+
+                    <div class="project">
+                        <div class="project-title">
+                            電商平台系統
+                            <span class="award">團隊領導者 & 後端開發者</span>
+                        </div>
+                        <ul>
+                            <li>領導4人敏捷開發團隊建置完整電商解決方案，使用PHP、MySQL、MVC架構</li>
+                            <li>實作Alipay API安全付款整合與完整身分驗證工作流程</li>
+                            <li>透過Docker容器化與GitHub Actions CI/CD達到 <span class="highlight">60%</span> 部署時間縮短</li>
+                            <li>於阿里雲ECS部署全端解決方案（前端、後端、資料庫）</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">專業發展</h3>
+                    <p><strong>產業參與：</strong>定期參與主要技術會議包括AWS re:Cap、Summit、Community Day、Google DevFest和COMPUTEX，積極為組織技術策略貢獻見解，持續掌握AI和雲端運算新興趨勢。</p>
+                </div>
+            </main>
+        </div>
     </div>
-    <script src="/mediapipe-example.js"></script>
+</body>
 </html>
